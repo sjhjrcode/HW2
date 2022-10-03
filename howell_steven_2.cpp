@@ -40,54 +40,6 @@ public:
 
 
 
-
-std::vector<int> binary(int dec){
-    std::vector<int> yeet;
-    int tmp = dec;
-    //int loc;
-    while(tmp>0){
-        //std::cout<<tmp%2<<std::endl;
-        yeet.push_back(tmp % 2);
-        tmp = tmp/2;
-        //std::cout<<tmp<<std::endl;
-
-        //loc++;
-    }
-
-    return yeet;
-}
-
-std::vector<int> octagional(int dec){
-    std::vector<int> yeet;
-    int tmp = dec;
-    //int loc;
-    while(tmp>0){
-        yeet.push_back(tmp % 8);
-        tmp = tmp/8;
-        //loc++;
-    }
-
-    return yeet;
-}
-std::vector<char> hexadecimal(int dec){
-    std::vector<char> yeet;
-    int tmp = dec;
-    //int loc;
-    while(tmp>0){
-        int convert = (tmp % 16);
-        if(convert>=10){
-            yeet.push_back(convert+55);
-        }
-        else{
-            yeet.push_back(convert+48);
-        }
-        tmp = tmp/16;
-        //loc++;
-    }
-
-    return yeet;
-}
-
 void menu(){
     std::cout.width(25);
     std::cout<<"MENU"<<std::endl<<std::endl<<"Binary (0), Octal (1), Hexadecimal (2)"<<std::endl;
@@ -101,9 +53,62 @@ int STI(std::string str){
     }
     return temp;
 }
-Stack<int> dec;
+
 Stack<int> oct;
+Stack<int> dec2;
 Stack<char> hex;
+
+
+
+
+
+void binary(int dec){
+    std::vector<int> yeet;
+    int tmp = dec;
+    //int loc;
+    while(tmp>0){
+        //std::cout<<tmp%2<<std::endl;
+        dec2.push(tmp % 2);
+        tmp = tmp/2;
+        //std::cout<<tmp<<std::endl;
+
+        //loc++;
+    }
+
+
+}
+
+void octagional(int dec){
+    std::vector<int> yeet;
+    int tmp = dec;
+    //int loc;
+    while(tmp>0){
+        oct.push(tmp % 8);
+        tmp = tmp/8;
+        //loc++;
+    }
+
+}
+void hexadecimal(int dec){
+    std::vector<char> yeet;
+    int tmp = dec;
+    //int loc;
+    while(tmp>0){
+        int convert = (tmp % 16);
+        if(convert>=10){
+            hex.push(convert+55);
+        }
+        else{
+            hex.push(convert+48);
+        }
+        tmp = tmp/16;
+        //loc++;
+    }
+
+}
+
+
+
 
 std::string decision(const std::string& user_input){
     std::string key = "null";
@@ -156,7 +161,7 @@ while (!ss.eof()) {
     if(wordlist.size() == 2){
         for(char i : wordlist.at(1)){
             if(!std::isdigit(i)){
-                std::cout<<"input is not a int or char"<<std::endl;
+                std::cout<<"input is not a int"<<std::endl;
                 return key;
             }
         }
@@ -164,26 +169,16 @@ while (!ss.eof()) {
     }
 
         if(wordlist.at(0) == "0"){
-            std::vector<int> yee = binary(STI(wordlist.at(1)));
-            for(int j = yee.size()-1;j>=0;j--) {
-                //std::cout<<yee.at(j)<<std::endl;
-                dec.push(yee.at(j));
-                //std::cout<<dec.topEl()<<std::endl;
-                //std::cout<<dec.size()<<std::endl;
-                //dec.push(1);
-            }
-            while(dec.size()>0) {
-                std::cout << dec.pop() << " ";
+            binary(STI(wordlist.at(1)));
+            while(dec2.size()>0) {
+                std::cout << dec2.pop() << " ";
             }
             std::cout<<std::endl;
         }
 
         else if(wordlist.at(0) == "1"){
-            std::vector<int> yee = octagional(STI(wordlist.at(1)));
-            for(int j = yee.size()-1;j>=0;j--) {
-                oct.push(yee.at(j));
-                //dec.push(1);
-            }
+            octagional(STI(wordlist.at(1)));
+
             while(oct.size()>0) {
                 std::cout << oct.pop() << " ";
             }
@@ -191,11 +186,7 @@ while (!ss.eof()) {
         }
 
         else if(wordlist.at(0) == "2"){
-            std::vector<char> yee = hexadecimal(STI(wordlist.at(1)));
-            for(int j = 0;j<yee.size();j++) {
-                hex.push(yee.at(j));
-                //dec.push(1);
-            }
+            hexadecimal(STI(wordlist.at(1)));
             while(hex.size()>0) {
                 std::cout << hex.pop() << " ";
             }
